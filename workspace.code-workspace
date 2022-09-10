@@ -1,0 +1,11 @@
+{
+	"folders": [],
+	"settings": {
+		"files.associations": {
+			"*.ejs": "html",
+			"*.tcc": "cpp",
+			"iostream": "cpp",
+			"ostream": "cpp"
+		}
+	}
+}
