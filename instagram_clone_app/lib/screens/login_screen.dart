@@ -60,22 +60,25 @@ class _LoginState extends State<Login> {
                 ),
               ),
               // button login
-              Container(
-                child: Text('LogIn'),
-                width: double.infinity,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 12,
-                ),
-                decoration: const ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(
-                        4,
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  child: Text('LogIn'),
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                  ),
+                  decoration: const ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          4,
+                        ),
                       ),
                     ),
+                    color: blueColor,
                   ),
-                  color: blueColor,
                 ),
               ),
               const SizedBox(
@@ -84,19 +87,22 @@ class _LoginState extends State<Login> {
               // Navigate to sign up
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Don\'t Have an account?',
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       left: 8.0,
                     ),
-                    child: Text(
-                      'SignUp',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: const Text(
+                        'SignUp',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
