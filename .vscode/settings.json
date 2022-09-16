@@ -2,5 +2,6 @@
     "files.associations": {
         "*.ejs": "html",
         "ostream": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "${workspaceFolder}/instagram_clone_app/linux"
 }

@@ -3,22 +3,26 @@ import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone_app/utils/colors.dart';
 import 'package:instagram_clone_app/widgets/text_field_input.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class SignUp extends StatefulWidget {
+  const SignUp({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _LoginState extends State<Login> {
+class _SignUpState extends State<SignUp> {
   TextEditingController emailEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
+  TextEditingController bioEditingController = TextEditingController();
+  TextEditingController usernameEditingController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
     emailEditingController.dispose();
     passwordEditingController.dispose();
+    bioEditingController.dispose();
+    usernameEditingController.dispose();
   }
 
   @override
@@ -26,22 +30,57 @@ class _LoginState extends State<Login> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 32,
-            ),
-            width: double.infinity,
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 32,
+          ),
+          width: double.infinity,
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // svg image
                 SizedBox(
-                  height: size.height * 0.4,
+                  height: size.height * 0.2,
                   child: SvgPicture.network(
                     'https://raw.githubusercontent.com/RivaanRanawat/instagram-flutter-clone/57f92e50238913d1a77b082ea8b061cda74865c9/assets/ic_instagram.svg',
                     color: Colors.white,
+                  ),
+                ),
+                // Circular Avatar
+                SizedBox(
+                  height: size.height * 0.2,
+                  child: Stack(
+                    children: [
+                      const CircleAvatar(
+                        radius: 64,
+                        backgroundImage: NetworkImage(
+                          'https://images.unsplash.com/photo-1661961110218-35af7210f803?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
+                        ),
+                      ),
+                      Positioned(
+                        right: 0,
+                        bottom: 25,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.add_a_photo,
+                            // color: Color,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // text field (username)
+                SizedBox(
+                  height: size.height * 0.1,
+                  child: TextInputField(
+                    textEditingController: usernameEditingController,
+                    isPass: false,
+                    hintText: 'Enter your UserName',
+                    textInputType: TextInputType.text,
                   ),
                 ),
                 // text field (email)
@@ -50,7 +89,7 @@ class _LoginState extends State<Login> {
                   child: TextInputField(
                     textEditingController: emailEditingController,
                     isPass: false,
-                    hintText: 'Email',
+                    hintText: 'Enter your Email',
                     textInputType: TextInputType.emailAddress,
                   ),
                 ),
@@ -60,17 +99,27 @@ class _LoginState extends State<Login> {
                   child: TextInputField(
                     textEditingController: passwordEditingController,
                     isPass: true,
-                    hintText: 'Password',
+                    hintText: 'Enter your Password',
                     textInputType: TextInputType.visiblePassword,
+                  ),
+                ),
+                // text field (bio)
+                SizedBox(
+                  height: size.height * 0.1,
+                  child: TextInputField(
+                    textEditingController: bioEditingController,
+                    isPass: false,
+                    hintText: 'Enter your bio',
+                    textInputType: TextInputType.text,
                   ),
                 ),
                 // button login
                 InkWell(
                   onTap: () {},
                   child: Container(
-                    child: Text('LogIn'),
-                    height: size.height * 0.05,
+                    child: Text('SignUp'),
                     width: double.infinity,
+                    height: size.height * 0.05,
                     alignment: Alignment.center,
                     padding: const EdgeInsets.symmetric(
                       vertical: 12,
@@ -94,7 +143,7 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'Don\'t Have an account?',
+                        'Already Have an account?',
                       ),
                       Padding(
                         padding: const EdgeInsets.only(
@@ -103,7 +152,7 @@ class _LoginState extends State<Login> {
                         child: GestureDetector(
                           onTap: () {},
                           child: const Text(
-                            'SignUp',
+                            'LogIn',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
