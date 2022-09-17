@@ -1,7 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone_app/resources/auth_data.dart';
 import 'package:instagram_clone_app/utils/colors.dart';
+import 'package:instagram_clone_app/utils/utils.dart';
 import 'package:instagram_clone_app/widgets/text_field_input.dart';
 
 class SignUp extends StatefulWidget {
@@ -16,6 +20,14 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passwordEditingController = TextEditingController();
   TextEditingController bioEditingController = TextEditingController();
   TextEditingController usernameEditingController = TextEditingController();
+  Uint8List? image;
+
+  _selectImage() async {
+    Uint8List im = await imagepicker(ImageSource.camera);
+    setState(() {
+      image = im;
+    });
+  }
 
   @override
   void dispose() {
@@ -29,6 +41,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -54,17 +67,22 @@ class _SignUpState extends State<SignUp> {
                   height: size.height * 0.2,
                   child: Stack(
                     children: [
-                      const CircleAvatar(
-                        radius: 64,
-                        backgroundImage: NetworkImage(
-                          'https://images.unsplash.com/photo-1661961110218-35af7210f803?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
-                        ),
-                      ),
+                      image != null
+                          ? CircleAvatar(
+                              radius: 64,
+                              backgroundImage: MemoryImage(image!),
+                            )
+                          : const CircleAvatar(
+                              radius: 64,
+                              backgroundImage: NetworkImage(
+                                'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                              ),
+                            ),
                       Positioned(
                         right: 0,
                         bottom: 25,
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: _selectImage,
                           icon: const Icon(
                             Icons.add_a_photo,
                             // color: Color,
