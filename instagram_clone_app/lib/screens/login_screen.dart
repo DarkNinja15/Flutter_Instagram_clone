@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone_app/resources/auth_methods.dart';
+import 'package:instagram_clone_app/screens/signup_screen.dart';
 import 'package:instagram_clone_app/utils/colors.dart';
 import 'package:instagram_clone_app/utils/utils.dart';
 import 'package:instagram_clone_app/widgets/text_field_input.dart';
@@ -88,7 +89,7 @@ class _LoginState extends State<Login> {
                 InkWell(
                   onTap: _logInUser,
                   child: Container(
-                    height: size.height * 0.05,
+                    height: size.height * 0.060,
                     width: double.infinity,
                     alignment: Alignment.center,
                     padding: const EdgeInsets.symmetric(
@@ -127,7 +128,13 @@ class _LoginState extends State<Login> {
                           left: 8.0,
                         ),
                         child: GestureDetector(
-                          onTap: _logInUser,
+                          onTap: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => SignUp(),
+                              ),
+                            );
+                          },
                           child: const Text(
                             'SignUp',
                             style: TextStyle(
