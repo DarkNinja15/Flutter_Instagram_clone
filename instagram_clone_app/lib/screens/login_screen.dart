@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:instagram_clone_app/resources/auth_methods.dart';
 import 'package:instagram_clone_app/utils/colors.dart';
+import 'package:instagram_clone_app/utils/utils.dart';
 import 'package:instagram_clone_app/widgets/text_field_input.dart';
 
 class Login extends StatefulWidget {
@@ -13,6 +15,24 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController emailEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
+  bool _isLoading = false;
+
+  _logInUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().LogInUser(
+      email: emailEditingController.text,
+      password: passwordEditingController.text,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+    if (res != 'success') {
+      snackbar(res, context);
+    }
+    print(res);
+  }
 
   @override
   void dispose() {
@@ -66,9 +86,8 @@ class _LoginState extends State<Login> {
                 ),
                 // button login
                 InkWell(
-                  onTap: () {},
+                  onTap: _logInUser,
                   child: Container(
-                    child: Text('LogIn'),
                     height: size.height * 0.05,
                     width: double.infinity,
                     alignment: Alignment.center,
@@ -85,6 +104,13 @@ class _LoginState extends State<Login> {
                       ),
                       color: blueColor,
                     ),
+                    child: _isLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Text('LogIn'),
                   ),
                 ),
                 // Navigate to sign up
@@ -101,7 +127,7 @@ class _LoginState extends State<Login> {
                           left: 8.0,
                         ),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: _logInUser,
                           child: const Text(
                             'SignUp',
                             style: TextStyle(
