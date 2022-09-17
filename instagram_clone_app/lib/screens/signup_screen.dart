@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_clone_app/resources/auth_data.dart';
+import 'package:instagram_clone_app/resources/auth_methods.dart';
 import 'package:instagram_clone_app/utils/colors.dart';
 import 'package:instagram_clone_app/utils/utils.dart';
 import 'package:instagram_clone_app/widgets/text_field_input.dart';
@@ -140,6 +140,7 @@ class _SignUpState extends State<SignUp> {
                       password: passwordEditingController.text,
                       username: usernameEditingController.text,
                       bio: bioEditingController.text,
+                      file: image!,
                     );
                     print(res);
                   },
