@@ -21,12 +21,33 @@ class _SignUpState extends State<SignUp> {
   TextEditingController bioEditingController = TextEditingController();
   TextEditingController usernameEditingController = TextEditingController();
   Uint8List? image;
+  bool _isLoading = false;
 
   _selectImage() async {
     Uint8List im = await imagepicker(ImageSource.camera);
     setState(() {
       image = im;
     });
+  }
+
+  _signUpUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final res = await AuthMethods().SignUpUser(
+      email: emailEditingController.text,
+      password: passwordEditingController.text,
+      username: usernameEditingController.text,
+      bio: bioEditingController.text,
+      file: image!,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+    if (res != 'success') {
+      snackbar(res, context);
+    }
+    print(res);
   }
 
   @override
@@ -134,20 +155,10 @@ class _SignUpState extends State<SignUp> {
                 ),
                 // button login
                 InkWell(
-                  onTap: () async {
-                    final res = await AuthMethods().SignUpUser(
-                      email: emailEditingController.text,
-                      password: passwordEditingController.text,
-                      username: usernameEditingController.text,
-                      bio: bioEditingController.text,
-                      file: image!,
-                    );
-                    print(res);
-                  },
+                  onTap: _signUpUser,
                   child: Container(
-                    child: Text('SignUp'),
                     width: double.infinity,
-                    height: size.height * 0.05,
+                    height: size.height * 0.060,
                     alignment: Alignment.center,
                     padding: const EdgeInsets.symmetric(
                       vertical: 12,
@@ -162,6 +173,13 @@ class _SignUpState extends State<SignUp> {
                       ),
                       color: blueColor,
                     ),
+                    child: _isLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Text('SignUp'),
                   ),
                 ),
                 // Navigate to sign up

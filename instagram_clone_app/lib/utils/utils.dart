@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 imagepicker(ImageSource source) async {
@@ -9,4 +10,12 @@ imagepicker(ImageSource source) async {
     return await _file.readAsBytes();
   }
   print('No Image Selected');
+}
+
+snackbar(String message, BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message),
+    ),
+  );
 }
