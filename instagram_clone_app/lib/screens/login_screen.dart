@@ -6,6 +6,10 @@ import 'package:instagram_clone_app/utils/colors.dart';
 import 'package:instagram_clone_app/utils/utils.dart';
 import 'package:instagram_clone_app/widgets/text_field_input.dart';
 
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_layout_screen.dart';
+import '../responsive/web_scree_layout.dart';
+
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -29,7 +33,16 @@ class _LoginState extends State<Login> {
     setState(() {
       _isLoading = false;
     });
-    if (res != 'success') {
+    if (res == 'success') {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+            webScreenLayOut: WebScreenLayOut(),
+            mobileScreenLayOut: MobileScreenLayOut(),
+          ),
+        ),
+      );
+    } else {
       snackbar(res, context);
     }
     print(res);
