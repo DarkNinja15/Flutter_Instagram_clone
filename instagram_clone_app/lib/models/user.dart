@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 
 class User {
@@ -99,5 +100,18 @@ class User {
         photoUrl.hashCode ^
         followers.hashCode ^
         following.hashCode;
+  }
+
+  static User fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+    return User(
+      uid: snapshot['uid'],
+      username: snapshot['username'],
+      email: snapshot['email'],
+      bio: snapshot['bio'],
+      photoUrl: snapshot['photoUrl'],
+      followers: snapshot['followers'],
+      following: snapshot['following'],
+    );
   }
 }
