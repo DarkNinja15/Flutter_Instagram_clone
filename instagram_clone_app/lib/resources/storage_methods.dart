@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:uuid/uuid.dart';
 
 class StorageMethods {
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
@@ -15,6 +16,13 @@ class StorageMethods {
         .ref()
         .child(childname)
         .child(_auth.currentUser!.uid);
+
+    // when it is a post we create diffrent uid for diffrent posts.
+    if (isPost) {
+      String id = const Uuid().v1();
+      ref = ref.child(id);
+    }
+
     // putting file in uid folder.
     UploadTask uploadTask = ref.putData(file);
     // await the uploadtask

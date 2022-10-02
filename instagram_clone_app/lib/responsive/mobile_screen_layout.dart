@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_app/utils/colors.dart';
+import 'package:instagram_clone_app/utils/global_variables.dart';
 
 class MobileScreenLayOut extends StatefulWidget {
   const MobileScreenLayOut({Key? key}) : super(key: key);
@@ -90,23 +91,7 @@ class _MobileScreenLayOutState extends State<MobileScreenLayOut> {
             ]),
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
-          children: [
-            // Center(
-            //   child: Text('a'),
-            // ),
-            // Center(
-            //   child: Text('b'),
-            // ),
-            // Center(
-            //   child: Text('c'),
-            // ),
-            // Center(
-            //   child: Text('d'),
-            // ),
-            // Center(
-            //   child: Text('e'),
-            // ),
-          ],
+          children: homeScreen,
           controller: _pageController,
           onPageChanged: onPageChanged,
         ));
