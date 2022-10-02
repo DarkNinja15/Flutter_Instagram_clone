@@ -41,18 +41,25 @@ class _AddPostScreenState extends State<AddPostScreen> {
       );
       if (res == 'Success') {
         snackbar('Posted', context);
+        setState(() {
+          _isLoading = false;
+        });
+        setState(() {
+          clearImage();
+        });
       } else {
         snackbar(res, context);
+        setState(() {
+          _isLoading = false;
+        });
       }
-      setState(() {
-        _isLoading = false;
-      });
     } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
       snackbar(e.toString(), context);
     }
+  }
+
+  void clearImage() {
+    _file = null;
   }
 
   _selectImage(BuildContext context) async {
@@ -119,7 +126,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
               leading: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    clearImage();
+                  });
+                },
                 icon: const Icon(Icons.arrow_back_ios),
               ),
               title: const Text('Post To'),
@@ -150,7 +161,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           color: Colors.blueAccent,
                         ),
                       )
-                    : Container(),
+                    : const Padding(
+                        padding: EdgeInsets.only(
+                          top: 8.0,
+                        ),
+                      ),
+                const Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
