@@ -13,6 +13,7 @@ class PostCard extends StatelessWidget {
       ),
       child: Column(
         children: [
+          // Header
           Container(
             padding: const EdgeInsets.symmetric(
               vertical: 4,
@@ -80,6 +81,50 @@ class PostCard extends StatelessWidget {
               ],
             ),
           ),
+          // Image
+          SizedBox(
+            height: MediaQuery.of(context).size.height * .35,
+            width: double.infinity,
+            child: Image.network(
+              'https://images.unsplash.com/photo-1664710476481-1213c456c56c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
+              fit: BoxFit.cover,
+            ),
+          ),
+          // like/comment/share
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.favorite,
+                  color: Colors.red,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.comment,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.share,
+                ),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.save,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          )
         ],
       ),
     );
