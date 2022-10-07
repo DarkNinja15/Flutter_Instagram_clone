@@ -22,6 +22,7 @@ class _PostCardState extends State<PostCard> {
   bool isLikeAnimating = false;
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).getUser;
     return Container(
       color: mobileBackgroundColor,
       padding: const EdgeInsets.symmetric(
@@ -102,9 +103,7 @@ class _PostCardState extends State<PostCard> {
             onDoubleTap: () async {
               await FirestoreMethods().likePost(
                 widget.snap['postId'],
-                Provider.of<UserProvider>(context, listen: false)
-                    .getUser
-                    .uid, // listen = false is important.
+                user.uid, // listen = false is important.
                 widget.snap['likes'],
               );
               setState(() {
@@ -152,11 +151,17 @@ class _PostCardState extends State<PostCard> {
             children: [
               LikeAnimation(
                 isAnimating: (widget.snap['likes']).contains(
-                  Provider.of<UserProvider>(context).getUser.uid,
+                  user.uid,
                 ),
                 smalllike: true,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await FirestoreMethods().likePost(
+                      widget.snap['postId'],
+                      user.uid,
+                      widget.snap['likes'],
+                    );
+                  },
                   icon: const Icon(
                     Icons.favorite,
                     color: Colors.red,
