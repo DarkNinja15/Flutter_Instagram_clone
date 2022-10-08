@@ -67,11 +67,11 @@ class FirestoreMethods {
   }
 
   // comment post
-  Future<void> commentPost(String postId, String text, String uid, String, name,
+  Future<void> commentPost(String postId, String text, String uid, String name,
       String profilePic) async {
     try {
       if (text.isNotEmpty) {
-        final commentId = const Uuid().v1();
+        String commentId = const Uuid().v1();
         await _firestore
             .collection('posts')
             .doc(postId)

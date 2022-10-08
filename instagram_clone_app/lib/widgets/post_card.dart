@@ -128,11 +128,6 @@ class _PostCardState extends State<PostCard> {
                   ),
                   opacity: isLikeAnimating ? 1 : 0,
                   child: LikeAnimation(
-                    child: Icon(
-                      Icons.favorite,
-                      color: Colors.grey,
-                      size: 100,
-                    ),
                     isAnimating: isLikeAnimating,
                     duration: const Duration(
                       milliseconds: 400,
@@ -142,6 +137,11 @@ class _PostCardState extends State<PostCard> {
                         isLikeAnimating = false;
                       });
                     },
+                    child: const Icon(
+                      Icons.favorite,
+                      color: Colors.grey,
+                      size: 100,
+                    ),
                   ),
                 )
               ],
@@ -177,7 +177,9 @@ class _PostCardState extends State<PostCard> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => CommentScren(),
+                      builder: (context) => CommentScreen(
+                        snap: widget.snap,
+                      ),
                     ),
                   );
                 },
@@ -248,11 +250,11 @@ class _PostCardState extends State<PostCard> {
                 InkWell(
                   onTap: () {},
                   child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
                         vertical: 4.0,
                       ),
-                      child: Text(
+                      child: const Text(
                         'View all 200 comments',
                         style: TextStyle(
                           fontSize: 16,
